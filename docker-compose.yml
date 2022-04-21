@@ -1,0 +1,12 @@
+version: '3'
+services:
+  node:
+    build: ./node
+    environment:
+      - COMPOSE_PROJECT_NAME
+    networks:
+      - pubsub
+    volumes:
+      - ./node:/code
+networks:
+  pubsub:
