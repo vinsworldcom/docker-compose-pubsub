@@ -2,7 +2,7 @@
 
 ## Overview
 
-This uses `docker-compose` to create a small network of containers:
+This uses `docker compose` to create a small network of containers:
 
 ```
     |--> pubsub-node-1 (MQTT)
@@ -32,14 +32,14 @@ app.py   [ msgs pub| to local] |     \
             broker :1884       |
 ```
 
-With this unconventional setup, each local application publishes and 
-subscribes to a local node broker so the broker is always "up", regardless 
-of whether remote nodes are reachable.  The 'app.py' publishes to the 
+With this unconventional setup, each local application publishes and
+subscribes to a local node broker so the broker is always "up", regardless
+of whether remote nodes are reachable.  The 'app.py' publishes to the
 localhost "remote" broker and subscribes to the localhost "local" broker.
 
-The 'subproxy.py' application subscribes to all remote node "remote" brokers 
-and any subscription traffic it receives is the published to the localhost 
-"local" broker - for 'app.py' to receive.  The 'subproxy.py' handles 
+The 'subproxy.py' application subscribes to all remote node "remote" brokers
+and any subscription traffic it receives is the published to the localhost
+"local" broker - for 'app.py' to receive.  The 'subproxy.py' handles
 reconnects and resubscriptions in the case of network failure.
 
 ## Build
@@ -47,7 +47,7 @@ reconnects and resubscriptions in the case of network failure.
 To launch, just open a terminal, go to the same level with
 'docker-compose.yml', and execute:
 
-`docker-compose up -d --scale node=X`
+`docker compose up -d --scale node=X`
 
 Where 'X' is the number of pubsub nodes wanted - 3 is recommended at
 least.
@@ -64,17 +64,17 @@ And run in each container:
 
 `./start.sh`
 
-You will see the time of day from each of the remote nodes begin printing. 
+You will see the time of day from each of the remote nodes begin printing.
 In one node, stop the demo by running in that container:
 
 `./stop.sh`
 
-Watch the other containers continue to receive updates from the remaining 
+Watch the other containers continue to receive updates from the remaining
 nodes.  Now restart the application in the container in which it was stopped:
 
 `./start.sh`
 
-See the time of day from all the remotes begin to be received again on all 
+See the time of day from all the remotes begin to be received again on all
 nodes.
 
 Log files for 'mosquitto' brokers can be found at:
@@ -88,4 +88,4 @@ tail -f /var/log/mosquitto-remote.log
 
 To quit (`CTRL+C` in the terminal if not called with `-d` option)
 
-`docker-compose down`
+`docker compose down`
